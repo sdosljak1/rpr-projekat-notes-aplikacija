@@ -8,4 +8,10 @@ public interface Biljeska {
     void setVlasnik(Vlasnik vlasnik);
     void setKategorija(Kategorija kategorija);
     void setDatum(Date datum);
+
+    String getNalov();
+    String getSadrzaj();
+    Vlasnik getVlasnik();
+    Kategorija getKazegorija();
+    Date getDatum();
 }

@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements BiljeskaDao{
     private static BiljeskaDaoSQLImpl instance = null;
-    private QuoteDaoSQLImpl() {
+    private BiljeskaDaoSQLImpl() {
         super("quotes");
     }
 
@@ -58,9 +58,9 @@ public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements Biljesk
         item.put("id", object.getId());
         item.put("vlasnik_id", object.getVlasnik().getId());
         item.put("kategorija_id", object.getKategorija().getId());
-        item.put("naslov", object.getNaslov();
-        item.put("sadrzaj", object.getSadrzaj();
-        item.put("datum", object.getDatum();
+        item.put("naslov", object.getNaslov());
+        item.put("sadrzaj", object.getSadrzaj());
+        item.put("datum", object.getDatum());
 
         return item;
     }
@@ -76,12 +76,22 @@ public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements Biljesk
         return executeQuery("SELECT * FROM quotes WHERE quote LIKE concat('%', ?, '%')", new Object[]{text});
     }
 
+    @Override
+    public List<Biljeska> searchByCategory(Kategorija kategorija) throws BiljeskaException {
+        return null;
+    }
+
+    @Override
+    public List<Biljeska> searchByOwner(Vlasnik vlasnik) throws BiljeskaException {
+        return null;
+    }
+
     /**
      * @param category search string for quotes
      * @return list of quotes
      * @author ahajro2
      */
-    @Override
+    //@Override
     public List<Biljeska> searchByCategory(Biljeska category) throws BiljeskaException{
         return executeQuery("SELECT * FROM quotes WHERE category_id = ?", new Object[]{category.getId()});
     }

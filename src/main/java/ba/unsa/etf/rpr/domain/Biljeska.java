@@ -2,13 +2,16 @@ package ba.unsa.etf.rpr.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class Biljeska {
+public class Biljeska implements Idable {
     private int id;
     private Vlasnik vlasnik;
     private Kategorija kategorija;
     private String naslov;
     private String sadrzaj;
     private Date datum;
+
+    public Biljeska() {
+    }
 
     public Biljeska(String naziv) {
         this.naslov = naslov;

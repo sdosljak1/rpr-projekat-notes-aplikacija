@@ -1,10 +1,8 @@
-package ba.unsa.etf.rpr;
-
-import ba.unsa.etf.rpr.dao.Dao;
-import ba.unsa.etf.rpr.domain.Biljeska;
-
-
 package ba.unsa.etf.rpr.dao;
+
+import ba.unsa.etf.rpr.domain.Biljeska;
+import ba.unsa.etf.rpr.domain.Vlasnik;
+import ba.unsa.etf.rpr.domain.Kategorija;
 
 public interface BiljeskaDao extends Dao<Biljeska> {
 }

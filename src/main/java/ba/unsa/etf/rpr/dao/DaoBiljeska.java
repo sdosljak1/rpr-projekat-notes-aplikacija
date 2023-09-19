@@ -1,7 +1,15 @@
 package ba.unsa.etf.rpr;
 
-import java.util.Date;
+import ba.unsa.etf.rpr.dao.Dao;
+import ba.unsa.etf.rpr.domain.Biljeska;
 
+
+package ba.unsa.etf.rpr.dao;
+
+public interface BiljeskaDao extends Dao<Biljeska> {
+}
+
+/*
 public interface Biljeska {
     void setNaslov(String naslov);
     void setSadrzaj(String sadrzaj);
@@ -14,4 +22,5 @@ public interface Biljeska {
     Vlasnik getVlasnik();
     Kategorija getKazegorija();
     Date getDatum();
-}
+    }
+ */

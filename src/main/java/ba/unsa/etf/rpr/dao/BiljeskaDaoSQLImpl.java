@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class BiljeskaDaoSQLImpl {
+public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements BiljeskaDao{
     private static BiljeskaDaoSQLImpl instance = null;
     private QuoteDaoSQLImpl() {
         super("quotes");

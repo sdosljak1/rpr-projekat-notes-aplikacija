@@ -76,10 +76,6 @@ public class Biljeska {
 
     @Override
     public String toString() {
-        return naslov;
-    }
-
-    public String toString() {
         return "Biljeska{" +
                 "id=" + id +
                 ", nalsov='" + naslov + '\'' +

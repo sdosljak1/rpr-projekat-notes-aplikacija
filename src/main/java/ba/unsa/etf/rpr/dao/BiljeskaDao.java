@@ -1,11 +1,10 @@
 package ba.unsa.etf.rpr.dao;
-
 import ba.unsa.etf.rpr.domain.Biljeska;
 import ba.unsa.etf.rpr.domain.Vlasnik;
 import ba.unsa.etf.rpr.domain.Kategorija;
 import java.util.List;
 
-public interface BiljeskaDao extends Dao<Biljeska> {
+public interface BiljeskaDao extends Dao<Biljeska>{
     /**
      * Returns all quotes that contains given text.
      *
@@ -22,14 +21,13 @@ public interface BiljeskaDao extends Dao<Biljeska> {
      */
     List<Biljeska> searchByCategory(Kategorija kategorija) throws QuoteException;
 
+    List<Biljeska> searchByOwner(Vlasnik vlasnik) throws QuoteException;
+
     /**
      * Return random quote from database
      *
-     * @return random quote
+     * @return random biljeska
      * @throws QuoteException
      */
-
-    List<Biljeska> searchByOwner(Vlasnik vlasnik) throws QuoteException;
-
     Biljeska randomQuote() throws QuoteException;
 }

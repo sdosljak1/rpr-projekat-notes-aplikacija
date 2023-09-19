@@ -1,6 +1,6 @@
-package ba.unsa.etf.rpr.exeptions;
+package ba.unsa.etf.rpr.exceptions;
 
-public class BiljeskaExeption extends Exception{
+public class BiljeskaException extends Exception{
     public BiljeskaException(String msg, Exception reason){
         super(msg, reason);
     }

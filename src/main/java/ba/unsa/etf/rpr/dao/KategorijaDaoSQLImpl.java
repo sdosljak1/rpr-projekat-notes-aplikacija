@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.domain.Kategorija;
-import ba.unsa.etf.rpr.exceptions.QuoteException;
+import ba.unsa.etf.rpr.exceptions.BiljeskaException;
+import ba.unsa.etf.rpr.exceptions.BiljeskaException;
 
 import java.sql.*;
 import java.util.Map;
@@ -24,14 +25,14 @@ public class KategorijaDaoSQLImpl extends AbstractDao<Kategorija> implements Kat
     }
 
     @Override
-    public Kategorija row2object(ResultSet rs) throws QuoteException {
+    public Kategorija row2object(ResultSet rs) throws BiljeskaException {
         try {
             Kategorija cat = new Kategorija();
             cat.setId(rs.getInt("id"));
             cat.setNaziv(rs.getString("naziv"));
             return cat;
         } catch (SQLException e) {
-            throw new QuoteException(e.getMessage(), e);
+            throw new BiljeskaException(e.getMessage(), e);
         }
     }
 

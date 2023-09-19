@@ -2,7 +2,7 @@ package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.domain.Biljeska;
 import ba.unsa.etf.rpr.domain.Vlasnik;
 import ba.unsa.etf.rpr.domain.Kategorija;
-import ba.unsa.etf.rpr.exceptions.QuoteException;
+import ba.unsa.etf.rpr.exceptions.BiljeskaException;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -33,7 +33,7 @@ public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements Biljesk
     }
 
     @Override
-    public Biljeska row2object(ResultSet rs) throws QuoteException{
+    public Biljeska row2object(ResultSet rs) throws BiljeskaException{
         try {
             Biljeska q = new Biljeska();
             q.setId(rs.getInt("id"));
@@ -44,7 +44,7 @@ public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements Biljesk
             q.setKategorija(DaoFactory.kategorijaDao().getById(rs.getInt("kategorija_id")));
             return q;
         } catch (Exception e) {
-            throw new QuoteException(e.getMessage(), e);
+            throw new BiljeskaException(e.getMessage(), e);
         }
     }
 
@@ -72,7 +72,7 @@ public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements Biljesk
      */
 
     @Override
-    public List<Biljeska> searchByText(String text) throws QuoteException{
+    public List<Biljeska> searchByText(String text) throws BiljeskaException{
         return executeQuery("SELECT * FROM quotes WHERE quote LIKE concat('%', ?, '%')", new Object[]{text});
     }
 
@@ -82,16 +82,16 @@ public class BiljeskaDaoSQLImpl extends AbstractDao<Biljeska> implements Biljesk
      * @author ahajro2
      */
     @Override
-    public List<Biljeska> searchByCategory(Biljeska category) throws QuoteException{
+    public List<Biljeska> searchByCategory(Biljeska category) throws BiljeskaException{
         return executeQuery("SELECT * FROM quotes WHERE category_id = ?", new Object[]{category.getId()});
     }
 
     /**
      * @return random quote from DB
-     * @throws QuoteException in case of error working with db
+     * @throws BiljeskaException in case of error working with db
      */
     @Override
-    public Biljeska randomQuote() throws QuoteException {
+    public Biljeska randomQuote() throws BiljeskaException {
         return executeQueryUnique("SELECT * FROM quotes ORDER BY RAND() LIMIT 1", null);
     }
 }

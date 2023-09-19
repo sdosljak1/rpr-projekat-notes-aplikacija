@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.dao;
 import ba.unsa.etf.rpr.domain.Idable;
-import ba.unsa.etf.rpr.exceptions.QuoteException;
+import ba.unsa.etf.rpr.exceptions.BiljeskaException;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -50,9 +50,9 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
      * Method for mapping ResultSet into Object
      * @param rs - result set from database
      * @return a Bean object for specific table
-     * @throws QuoteException in case of error with db
+     * @throws BiljeskaException in case of error with db
      */
-    public abstract T row2object(ResultSet rs) throws QuoteException;
+    public abstract T row2object(ResultSet rs) throws BiljeskaException;
 
     /**
      * Method for mapping Object into Map
@@ -61,26 +61,26 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
      */
     public abstract Map<String, Object> object2row(T object);
 
-    public T getById(int id) throws QuoteException {
+    public T getById(int id) throws BiljeskaException {
         return executeQueryUnique("SELECT * FROM "+this.tableName+" WHERE id = ?", new Object[]{id});
     }
 
-    public List<T> getAll() throws QuoteException {
+    public List<T> getAll() throws BiljeskaException {
         return executeQuery("SELECT * FROM "+ tableName, null);
     }
 
-    public void delete(int id) throws QuoteException {
+    public void delete(int id) throws BiljeskaException {
         String sql = "DELETE FROM "+tableName+" WHERE id = ?";
         try{
             PreparedStatement stmt = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setObject(1, id);
             stmt.executeUpdate();
         }catch (SQLException e){
-            throw new QuoteException(e.getMessage(), e);
+            throw new BiljeskaException(e.getMessage(), e);
         }
     }
 
-    public T add(T item) throws QuoteException{
+    public T add(T item) throws BiljeskaException{
         Map<String, Object> row = object2row(item);
         Map.Entry<String, String> columns = prepareInsertParts(row);
 
@@ -106,11 +106,11 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
 
             return item;
         }catch (SQLException e){
-            throw new QuoteException(e.getMessage(), e);
+            throw new BiljeskaException(e.getMessage(), e);
         }
     }
 
-    public T update(T item) throws QuoteException{
+    public T update(T item) throws BiljeskaException{
         Map<String, Object> row = object2row(item);
         String updateColumns = prepareUpdateParts(row);
         StringBuilder builder = new StringBuilder();
@@ -132,7 +132,7 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
             stmt.executeUpdate();
             return item;
         }catch (SQLException e){
-            throw new QuoteException(e.getMessage(), e);
+            throw new BiljeskaException(e.getMessage(), e);
         }
     }
 
@@ -141,9 +141,9 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
      * @param query - SQL query
      * @param params - params for query
      * @return List of objects from database
-     * @throws QuoteException in case of error with db
+     * @throws BiljeskaException in case of error with db
      */
-    public List<T> executeQuery(String query, Object[] params) throws QuoteException{
+    public List<T> executeQuery(String query, Object[] params) throws BiljeskaException{
         try {
             PreparedStatement stmt = getConnection().prepareStatement(query);
             if (params != null){
@@ -158,7 +158,7 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
             }
             return resultList;
         } catch (SQLException e) {
-            throw new QuoteException(e.getMessage(), e);
+            throw new BiljeskaException(e.getMessage(), e);
         }
     }
 
@@ -167,14 +167,14 @@ public abstract class AbstractDao <T extends Idable> implements Dao<T> {
      * @param query - query that returns single record
      * @param params - list of params for sql query
      * @return Object
-     * @throws QuoteException in case when object is not found
+     * @throws BiljeskaException in case when object is not found
      */
-    public T executeQueryUnique(String query, Object[] params) throws QuoteException{
+    public T executeQueryUnique(String query, Object[] params) throws BiljeskaException{
         List<T> result = executeQuery(query, params);
         if (result != null && result.size() == 1){
             return result.get(0);
         }else{
-            throw new QuoteException("Object not found");
+            throw new BiljeskaException("Object not found");
         }
     }
 

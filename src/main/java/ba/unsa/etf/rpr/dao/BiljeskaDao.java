@@ -3,6 +3,7 @@ import ba.unsa.etf.rpr.domain.Biljeska;
 import ba.unsa.etf.rpr.domain.Vlasnik;
 import ba.unsa.etf.rpr.domain.Kategorija;
 import java.util.List;
+import ba.unsa.etf.rpr.exceptions.BiljeskaException;
 
 public interface BiljeskaDao extends Dao<Biljeska>{
     /**
@@ -11,7 +12,7 @@ public interface BiljeskaDao extends Dao<Biljeska>{
      * @param text search string for quotes
      * @return list of quotes
      */
-    List<Biljeska> searchByText(String text) throws QuoteException;
+    List<Biljeska> searchByText(String text) throws BiljeskaException;
 
     /**
      * Returns all quotes that contains given text.
@@ -19,15 +20,15 @@ public interface BiljeskaDao extends Dao<Biljeska>{
      * @param kategorija search string for quotes
      * @return list of quotes
      */
-    List<Biljeska> searchByCategory(Kategorija kategorija) throws QuoteException;
+    List<Biljeska> searchByCategory(Kategorija kategorija) throws BiljeskaException;
 
-    List<Biljeska> searchByOwner(Vlasnik vlasnik) throws QuoteException;
+    List<Biljeska> searchByOwner(Vlasnik vlasnik) throws BiljeskaException;
 
     /**
      * Return random quote from database
      *
      * @return random biljeska
-     * @throws QuoteException
+     * @throws BiljeskaException
      */
-    Biljeska randomQuote() throws QuoteException;
+    Biljeska randomQuote() throws BiljeskaException;
 }
